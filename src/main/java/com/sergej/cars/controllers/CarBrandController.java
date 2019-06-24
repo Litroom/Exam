@@ -4,8 +4,11 @@ import com.sergej.cars.dto.CarDealerGetDTO;
 import com.sergej.cars.dto.CarBrandGetDTO;
 import com.sergej.cars.dto.CarBrandPutDTO;
 import com.sergej.cars.services.CarBrandService;
+import com.sergej.cars.services.CarService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +25,9 @@ public class CarBrandController {
     public CarBrandController(CarBrandService carBrandService) {
         this.carBrandService = carBrandService;
     }
+
+    private final Logger logger = LoggerFactory.getLogger(CarBrandController.class);
+
     //Get All Brands
 
     @GetMapping
@@ -47,18 +53,21 @@ public class CarBrandController {
             @RequestBody
             final CarBrandPutDTO putDTO){
         carBrandService.CreateNewCarBrand(putDTO);
+        logger.info("Creating new car Brand");
     }
 
     @PutMapping("/{title}")
     @ApiOperation(value = "Update existing brand")
     public void update(@PathVariable final String title, @RequestBody CarBrandPutDTO carBrandPutDTO){
         carBrandService.update(title, carBrandPutDTO);
+        logger.info("Updating a car Brand");
     }
 
     @DeleteMapping("/{title}")
     @ApiOperation(value = "Delete brand by title")
     public void delete(@PathVariable final String title){
         carBrandService.delete(title);
+        logger.warn("Deleting a car Brand");
     }
 
     @GetMapping("/{title}/all-brands")

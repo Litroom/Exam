@@ -6,6 +6,8 @@ import com.sergej.cars.services.CarService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,8 @@ public class CarController {
     public CarController(CarService carService) {
         this.carService = carService;
     }
+
+    private final Logger logger = LoggerFactory.getLogger(CarController.class);
 
     //Get All songs
 
@@ -43,18 +47,21 @@ public class CarController {
     @ApiOperation(value = "Save new car")
     public void save(@RequestBody CarPutDTO car){
         carService.saveCar(car);
+        logger.info("saving new car");
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Remove car by id")
     public void deleteCarById(@ApiParam(value = "id",required = true) @PathVariable final long id){
         carService.deleteCarById(id);
+        logger.warn("deleting a car");
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "Update car")
     public void updateSong(@PathVariable final long id, @RequestBody CarPutDTO carPutDTO){
         carService.updateSong(id, carPutDTO);
+        logger.info("updating a car");
     }
 
     @PutMapping("/{car_id}/{dealer_title}")
