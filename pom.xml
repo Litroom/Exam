@@ -8,17 +8,17 @@
 		<version>2.1.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.sergej.cars</groupId>
-	<artifactId>cars</artifactId>
+	<groupId>com.sergej.warehouse</groupId>
+	<artifactId>warehouse</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>exam practice</name>
-	<description>Pre exam practice 2019</description>
+	<name>warehouse system</name>
+	<description>Warehouse managing sytem</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>com.sergej.cars.App</start-class>
+		<start-class>com.sergej.warehouse.App</start-class>
 	</properties>
 
 	<dependencies>
