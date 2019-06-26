@@ -10,7 +10,6 @@ import java.util.concurrent.atomic.LongAccumulator;
 
 @Repository
 public interface ClientsRepo extends JpaRepository<Clients,Long> {
-    //Clients findByFirstName(String firstName);
-    //Clients findById(Long id);
-    void deleteByID(Long id);
+
+    void deleteById(Long id);
 }

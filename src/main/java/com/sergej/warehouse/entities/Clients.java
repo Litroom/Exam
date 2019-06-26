@@ -3,6 +3,7 @@ package com.sergej.warehouse.entities;
 import com.sergej.warehouse.enums.ClientType;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +23,7 @@ public class Clients {
     private String lastName;
 
     @Column(name = "dateOfBirth")
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @Column(name = "phoneNumber")
     private Integer phoneNumber;
@@ -36,7 +37,7 @@ public class Clients {
             joinColumns = @JoinColumn(name = "clients_id"), inverseJoinColumns = @JoinColumn(name = "inventory_id"))
     private Set<Inventory> inventory = new HashSet<>();
 
-    public Clients(String firstName, String lastName, Date dateOfBirth, Integer phoneNumber,
+    public Clients(String firstName, String lastName, LocalDate dateOfBirth, Integer phoneNumber,
                    ClientType clientType, Set<Inventory> inventory) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -69,11 +70,11 @@ public class Clients {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

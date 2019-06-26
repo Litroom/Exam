@@ -1,5 +1,6 @@
 package com.sergej.warehouse.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class InventoryPutDTO {
@@ -7,9 +8,9 @@ public class InventoryPutDTO {
     private String title;
     private Double weight;
     private Integer inventorySection;
-    private Date storingDate;
+    private LocalDate storingDate;
 
-    public InventoryPutDTO(String title, Double weight, Integer inventorySection, Date storingDate) {
+    public InventoryPutDTO(String title, Double weight, Integer inventorySection, LocalDate storingDate) {
         this.title = title;
         this.weight = weight;
         this.inventorySection = inventorySection;
@@ -43,11 +44,11 @@ public class InventoryPutDTO {
         this.inventorySection = inventorySection;
     }
 
-    public Date getStoringDate() {
+    public LocalDate getStoringDate() {
         return storingDate;
     }
 
-    public void setStoringDate(Date storingDate) {
+    public void setStoringDate(LocalDate storingDate) {
         this.storingDate = storingDate;
     }
 }

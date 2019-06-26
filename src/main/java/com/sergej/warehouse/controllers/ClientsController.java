@@ -1,6 +1,7 @@
 package com.sergej.warehouse.controllers;
 
 import com.sergej.warehouse.dto.ClientsGetDTO;
+import com.sergej.warehouse.dto.ClientsPutDTO;
 import com.sergej.warehouse.dto.InventoryGetDTO;
 import com.sergej.warehouse.dto.InventoryPutDTO;
 import com.sergej.warehouse.services.ClientsService;
@@ -47,29 +48,34 @@ public class ClientsController {
 
     @PostMapping
     @ApiOperation(value = "Save new client")
-    public void save(@RequestBody InventoryPutDTO car){
-        inventoryService.saveCar(car);
-        logger.info("saving new car");
+    public void save(@RequestBody ClientsPutDTO client){
+        clientsService.saveNewClient(client);
+        logger.info("saving new client");
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "Remove car by id")
-    public void deleteCarById(@ApiParam(value = "id",required = true) @PathVariable final long id){
-        inventoryService.deleteCarById(id);
-        logger.warn("deleting a car");
+    @ApiOperation(value = "Remove client by id")
+    public void deleteClientById(@ApiParam(value = "id",required = true) @PathVariable final long id){
+        clientsService.deleteById(id);
+        logger.warn("deleting a client");
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update car")
-    public void updateSong(@PathVariable final long id, @RequestBody InventoryPutDTO inventoryPutDTO){
-        inventoryService.updateSong(id, inventoryPutDTO);
-        logger.info("updating a car");
+    @ApiOperation(value = "Update client")
+    public void updateClient(@PathVariable final long id, @RequestBody ClientsPutDTO clientsPutDTO){
+        clientsService.updateClient(id, clientsPutDTO);
+        logger.info("updating a client");
     }
 
-    @PutMapping("/{car_id}/{dealer_title}")
-    @ApiOperation(value = "Add a car to dealer")
-    public void addCarToDealer(@PathVariable final long car_id, @PathVariable final String dealer_title){
-        inventoryService.addCarToCarDealer(car_id,dealer_title);
+    @PutMapping("/{client_id}/{inventory_title}")
+    @ApiOperation(value = "Add a client to inventory")
+    public void addToolToInventory(@PathVariable final long client_id, @PathVariable final String inventory_title){
+        clientsService.addClientToInventory(inventory_title, client_id);
     }
 
+    @GetMapping("/{id}/all-tools")
+    @ApiOperation(value = "Get all tools for client")
+    public List<InventoryGetDTO> getAllClientsTools(@PathVariable final Long id) {
+        return clientsService.getAllClientTools(id);
+    }
 }

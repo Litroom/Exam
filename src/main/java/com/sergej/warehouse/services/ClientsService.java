@@ -3,6 +3,7 @@ package com.sergej.warehouse.services;
 import com.sergej.warehouse.dto.ClientsGetDTO;
 import com.sergej.warehouse.dto.InventoryGetDTO;
 import com.sergej.warehouse.entities.Clients;
+import com.sergej.warehouse.entities.Inventory;
 import com.sergej.warehouse.repositories.ClientsRepo;
 import com.sergej.warehouse.dto.ClientsPutDTO;
 import com.sergej.warehouse.repositories.InventoryRepo;
@@ -68,6 +69,15 @@ public class ClientsService {
         client.setPhoneNumber(putDTO.getPhoneNumber());
         client.setClientType(putDTO.getClientType());
         clientsRepo.save(client);
+    }
+
+    @Transactional
+    public void addClientToInventory(String tool_title, Long client_id) {
+        Inventory inventory = inventoryRepo.findByTitle(tool_title);
+        Clients client = clientsRepo.getOne(client_id);
+        if(inventory != null){
+            inventory.getClients().add(client);
+        }
     }
 
     @Transactional

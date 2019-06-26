@@ -1,9 +1,9 @@
 package com.sergej.warehouse.controllers;
 
 import com.sergej.warehouse.dto.ClientsGetDTO;
-import com.sergej.warehouse.dto.ClientsPutDTO;
 import com.sergej.warehouse.dto.InventoryGetDTO;
-import com.sergej.warehouse.services.ClientsService;
+import com.sergej.warehouse.dto.InventoryPutDTO;
+import com.sergej.warehouse.services.InventoryService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,52 +17,57 @@ import java.util.List;
 public class InventoryController {
 
     @Autowired
-    private ClientsService clientsService;
+    private InventoryService inventoryService;
 
-    public InventoryController(ClientsService clientsService) {
-        this.clientsService = clientsService;
+    public InventoryController(InventoryService inventoryService) {
+        this.inventoryService = inventoryService;
     }
 
     private final Logger logger = LoggerFactory.getLogger(InventoryController.class);
 
     @GetMapping
-    @ApiOperation(value = "Get all dealers")
-    public List<ClientsGetDTO> findAllDeaers() {
-        return clientsService.findAll();
+    @ApiOperation(value = "Get whole inventory")
+    public List<InventoryGetDTO> findAllTools() {
+        return inventoryService.getWholeInventory();
     }
 
     @GetMapping("/{title}")
-    @ApiOperation(value = "Get dealer by title")
-    public ClientsGetDTO findDealerByTitle(@PathVariable final String title) {
-        return clientsService.findByTitle(title);
+    @ApiOperation(value = "Get inventory by title")
+    public InventoryGetDTO findInventoryByTitle(@PathVariable final String title) {
+        return inventoryService.findByTitle(title);
     }
 
     @DeleteMapping("/{title}")
-    @ApiOperation(value = "Delete dealer by title")
-    public void deleteDealerByTitle(@PathVariable final String title) {
-        clientsService.deleteByTitle(title);
-        logger.warn("Deleting car dealer");
+    @ApiOperation(value = "Delete inventory by title")
+    public void deleteInventoryByTitle(@PathVariable final String title) {
+        inventoryService.deleteToolByTitle(title);
+        logger.warn("Deleting inventory {title}");
     }
 
     @PostMapping
-    @ApiOperation(value = "Add new dealer")
-    public void save(@RequestBody final ClientsPutDTO putDTO){
-        clientsService.saveCarDealer(putDTO);
-        logger.info("Adding new car dealer");
+    @ApiOperation(value = "Add new inventory")
+    public void save(@RequestBody final InventoryPutDTO putDTO){
+        inventoryService.saveInventory(putDTO);
+        logger.info("Adding new inventory");
     }
 
-    @GetMapping("/{title}/warehouse")
-    @ApiOperation(value = "Get all warehouse")
-    public List<InventoryGetDTO> getAllSongs(@PathVariable final String title){
-        return clientsService.getAllSongs(title);
+    @PutMapping("/{client_id}/{inventory_title}")
+    @ApiOperation(value = "Add a client to inventory")
+    public void addInventoryToClient(@PathVariable final long client_id, @PathVariable final String inventory_title){
+        inventoryService.addToolsToClient(inventory_title, client_id);
     }
 
+    @GetMapping("/{title}/all-inventories")
+    @ApiOperation(value = "Get inventories for client")
+    public List<ClientsGetDTO> getAllClientsInventories(@PathVariable final String title) {
+        return inventoryService.getAllToolsOfClient(title);
+    }
 
     @PutMapping("/{title}")
-    @ApiOperation(value = "Update dealer")
-    public void updateDealer(@PathVariable final String title, @RequestBody ClientsPutDTO putDTO){
-        clientsService.updateCarDealer(title, putDTO);
-        logger.info("Updating car dealer");
+    @ApiOperation(value = "Update inventory")
+    public void updateInventory(@PathVariable final String title, @RequestBody InventoryPutDTO putDTO){
+        inventoryService.updateInventory(title, putDTO);
+        logger.info("Updating inventory");
     }
 
 }

@@ -2,6 +2,7 @@ package com.sergej.warehouse.dto;
 
 import com.sergej.warehouse.enums.ClientType;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ClientsPutDTO {
@@ -9,12 +10,12 @@ public class ClientsPutDTO {
 
         private String firstName;
         private String lastName;
-        private Date dateOfBirth;
+        private LocalDate dateOfBirth;
         private Integer phoneNumber;
         private ClientType clientType;
 
 
-        public ClientsPutDTO(String firstName, String lastName, Date dateOfBirth,
+        public ClientsPutDTO(String firstName, String lastName, LocalDate dateOfBirth,
                              Integer phoneNumber, ClientType clientType) {
             this.firstName = firstName;
             this.lastName = lastName;
@@ -42,11 +43,11 @@ public class ClientsPutDTO {
             this.lastName = lastName;
         }
 
-        public Date getDateOfBirth() {
+        public LocalDate getDateOfBirth() {
             return dateOfBirth;
         }
 
-        public void setDateOfBirth(Date dateOfBirth) {
+        public void setDateOfBirth(LocalDate dateOfBirth) {
             this.dateOfBirth = dateOfBirth;
         }
 

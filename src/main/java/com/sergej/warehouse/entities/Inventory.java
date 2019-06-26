@@ -1,6 +1,7 @@
 package com.sergej.warehouse.entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class Inventory {
     private Integer inventorySection;
 
     @Column(name = "StoringDate")
-    private Date storingDate;
+    private LocalDate storingDate;
 
 
 //    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
@@ -36,7 +37,7 @@ public class Inventory {
             joinColumns = @JoinColumn(name = "clients_id"), inverseJoinColumns = @JoinColumn(name = "inventory_id"))
     private Set<Clients> clients = new HashSet<>();
 
-    public Inventory(String title, Double weight, Integer inventorySection, Date storingDate, Set<Clients> clients) {
+    public Inventory(String title, Double weight, Integer inventorySection, LocalDate storingDate, Set<Clients> clients) {
         this.title = title;
         this.weight = weight;
         this.inventorySection = inventorySection;
@@ -84,11 +85,11 @@ public class Inventory {
         this.clients = clients;
     }
 
-    public Date getStoringDate() {
+    public LocalDate getStoringDate() {
         return storingDate;
     }
 
-    public void setStoringDate(Date storingDate) {
+    public void setStoringDate(LocalDate storingDate) {
         this.storingDate = storingDate;
     }
 

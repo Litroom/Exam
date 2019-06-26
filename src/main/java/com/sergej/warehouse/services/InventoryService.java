@@ -61,16 +61,16 @@ public class InventoryService {
     }
 
     @Transactional
-    public void addToolToClient(String tool_title, Long client_id) {
+    public void addToolsToClient(String tool_title, Long client_id) {
         Inventory inventory = inventoryRepo.findByTitle(tool_title);
-        Clients clients = clientsRepo.getOne(client_id);
-        if(inventory != null){
-            inventory.getClients().add(clients);
+        Clients client = clientsRepo.getOne(client_id);
+        if(client != null){
+            client.getInventory().add(inventory);
         }
     }
 
         @Transactional
-    public List<ClientsGetDTO> getAllTollsClients(String title) {
+    public List<ClientsGetDTO> getAllToolsOfClient(String title) {
         Inventory inventory = inventoryRepo.findByTitle(title);
         if(inventory != null){
             return inventory.getClients().stream().map(client ->
